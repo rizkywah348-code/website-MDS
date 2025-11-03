@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PT MAHARDHIKA DAMAI SEJAHTERA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #FFFFFF;
+            background-color: #1E1E1E;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        a {
+            text-decoration: none;
+            color: #D4AF37;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #D4AF37;
+            color: #1E1E1E;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #FFFFFF;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: backdrop-filter 0.3s;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+        nav .logo {
+            font-size: 24px;
+            color: #D4AF37;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+        nav ul li {
+            margin-left: 30px;
+        }
+        nav ul li a {
+            color: #FFFFFF;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #D4AF37;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background-image: url('img/img las 1.jpg'); /* Replace with actual image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(30, 30, 30, 0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: #FFFFFF;
+            color: #1E1E1E;
+        }
+        .about .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .about-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+        .about-icons {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+        }
+        .icon {
+            text-align: center;
+        }
+        .icon img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        .timeline {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .timeline-item {
+            text-align: center;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: #1E1E1E;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .service-card {
+            background-color: #FFFFFF;
+            color: #1E1E1E;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .service-card img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+        }
+
+        /* Project Showcase */
+        .projects {
+            padding: 100px 0;
+            background-color: #FFFFFF;
+            color: #1E1E1E;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .project-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .project-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .project-item:hover img {
+            transform: scale(1.1);
+        }
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(30, 30, 30, 0.8);
+            color: #FFFFFF;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        .project-item:hover .project-overlay {
+            transform: translateY(0);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background-color: #1E1E1E;
+        }
+        .testimonial-carousel {
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+        .testimonial {
+            min-width: 100%;
+            padding: 40px;
+            background-color: #FFFFFF;
+            color: #1E1E1E;
+            border-radius: 10px;
+            margin: 0 10px;
+            border: 2px solid #D4AF37;
+        }
+
+        /* ===== CSS UNTUK BAGIAN BARU (PENGHARGAAN) ===== */
+        .awards {
+            padding: 100px 0;
+            background-color: #FFFFFF; /* Latar putih seperti 'About' & 'Projects' */
+            color: #1E1E1E;
+        }
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .award-item {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .award-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .award-item img {
+            max-width: 80px; /* Atur ukuran logo/gambar penghargaan */
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .award-item h3 {
+            font-size: 18px;
+            color: #D4AF37; /* Judul penghargaan warna emas */
+            margin-bottom: 10px;
+        }
+        .award-item p {
+            font-size: 14px;
+        }
+        /* ===== AKHIR CSS BAGIAN PENGHARGAAN ===== */
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background-color: #FFFFFF;
+            color: #1E1E1E;
+        }
+        .contact .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .contact-form {
+            flex: 1;
+            padding-right: 50px;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #1E1E1E;
+            border-radius: 5px;
+        }
+        .map {
+            flex: 1;
+        }
+
+        /* ===== CSS UNTUK INFO KONTAK BARU ===== */
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        .contact-details h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: #1E1E1E;
+            margin-bottom: 10px;
+        }
+        .contact-details p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 5px;
+        }
+        .contact-details p strong {
+            color: #D4AF37; /* Beri sedikit aksen emas */
+        }
+        /* ===== AKHIR CSS INFO KONTAK ===== */
+
+
+        /* Footer */
+        footer {
+            background-color: #1E1E1E;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 2px solid #D4AF37;
+        }
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 18px; }
+            .about .container { flex-direction: column; }
+            .contact .container { flex-direction: column; }
+            .about-text { padding-right: 0; margin-bottom: 30px; }
+            .contact-form { padding-right: 0; margin-bottom: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo"><img src="img/img logo.png" alt=""></div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1>Solusi Terpercaya Konstruksi Infrastruktur Energi & Perpipaan Gas</h1>
+            <p>Didukung oleh pengalaman, keahlian EPC, dan komitmen K3 tanpa kompromi untuk mitra strategis nasional.</p>
+            <a href="#contact" class="btn">Contact Us</a>
+            <a href="#projects" class="btn">View Projects</a>
+        </div>
+    </section>
+
+
+    <section id="about" class="about fade-in">
+        <div class="container">
+            <div class="about-text">
+                <h2>About Us</h2>
+                <p>PT MAHARDHIKA DAMAI SEJAHTERA adalah perusahaan yang bergerak di bidang konstruksi dan rekayasa gas alam, yang berkomitmen menghadirkan solusi infrastruktur energi berkualitas tinggi, aman, dan berkelanjutan.
+
+Dengan pengalaman bertahun-tahun, kami telah menjadi mitra terpercaya bagi berbagai sektor — mulai dari industri, komersial, hingga pemerintah — dalam membangun proyek-proyek gas alam yang strategis dan bernilai tinggi.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>7+ Years Experience</h3>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>100+ Projects Completed</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="about-icons">
+                <div class="icon">
+                    <img src="img/logo safety.jpg" alt="Helmet Icon">
+                    <p>Safety First</p>
+                </div>
+                <div class="icon">
+                    <img src="img/img c.jpg" alt="Crane Icon">
+                    <p>Heavy Machinery</p>
+                </div>
+                <div class="icon">
+                    <img src="img/logo mds.png"alt="Blueprint Icon">
+                    <p>Expert Design</p>
+                </div>
+            </div>
+        </div>
+    </section>
+        <!-- End of contact section -->
+
+    <section id="services" class="services fade-in">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <img src="img/img icon pipa.jpg" alt="Building Icon">
+                    <h3>Konstruksi Perpipaan Gas</h3>
+                    <p>Keahlian khusus dalam konstruksi
+perpipaan gas dengan sertifikasi Operator
+Penyambungan Pipa PE dan Pipa Galvanis.</p>
+                </div>
+                <div class="service-card">
+                    <img src="img/img.inspeksi logo.jpg" alt="Interior Icon">
+                    <h3>Perawatan & Integritas Pipa</h3>
+                    <p>Spesialis dalam pemeliharaan, inspeksi, dan perbaikan jaringan pipa. Kami menjamin integritas aset dan operasional jangka panjang untuk infrastruktur gas Anda.</p>
+                </div>
+                <div class="service-card">
+                    <img src="img/img.desing.jpg" alt="Architect Icon">
+                    <h3>Rekayasa & Desain Teknis</h3>
+                    <p>Tim ahli kami merancang solusi sistem perpipaan yang efisien, inovatif, dan andal, mulai dari studi kelayakan (Feasibility Study) hingga desain teknis terperinci (DED).</p>
+                </div>
+                <div class="service-card">
+                    <img src="img/img.centang.jpg" alt="Infra Icon">
+                    <h3>Pengujian & Komisioning</h3>
+                    <p>Menyediakan layanan pengujian non-destruktif (NDT), hydro-testing, dan komisioning penuh untuk memastikan sistem pipa gas siap beroperasi dengan aman dan performa maksimal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects fade-in">
+        <div class="container">
+            <h2>Project Showcase</h2>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <img src="img/img hidro.jpg" alt="Project 1">
+                    <div class="project-overlay">
+                        <h3>High-Rise Tower</h3>
+                        <p>Downtown City</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="img/img crane.jpg" alt="Project 2">
+                    <div class="project-overlay">
+                        <h3>Office Renovation</h3>
+                        <p>Corporate District</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="img/img pekerjaan.png" alt="Project 3">
+                    <div class="project-overlay">
+                        <h3>Bridge Infrastructure</h3>
+                        <p>River Valley</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials fade-in">
+        <div class="container">
+            <h2>Client Testimonials</h2>
+            <div class="testimonial-carousel">
+                <div class="testimonial">
+                    <p>"Hasil kerja cepat, rapi, dan aman. Terima kasih atas dedikasi tim yang luar biasa!"</p>
+                    <p>- John, CEO</p>
+                </div>
+                <div class="testimonial">
+                    <p>"Layanan profesional, hasil memuaskan. Instalasi pipa gas selesai tepat waktu dan tanpa kendala.."</p>
+                    <p>- sahroni, Project Manager</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="awards" class="awards fade-in">
+        <div class="container">
+            <h2 style="text-align: center;">Penghargaan Kami</h2>
+            <div class="awards-grid">
+                <div class="award-item">
+                    <img src="img/img penghargaan 2.png" alt="Ikon Penghargaan 1">
+                    <h3>JUARA 1 - CHSEMS Award</h3>
+                    <p>Kategori High Risk Proyek Operasi (CHSEMS Award).</p>
+                </div>
+                <div class="award-item">
+                    <img src="img/img penerimaan penghargaan.png" alt="Ikon Penghargaan 2">
+                    <h3>THE BEST CHSEMS IMPLEMENTATION</h3>
+                    <p>Operation Project SOR II.</p>
+                </div>
+                <div class="award-item">
+                    <img src="img/img chsms.png" alt="Ikon Penghargaan 3"> <h3>Best Safety Record 2023</h3>
+                    <p>Penghargaan untuk rekor tanpa kecelakaan kerja selama 2023.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="contact fade-in">
+        <div class="container">
+            <div class="contact-form">
+                <h2>Contact Us</h2>
+
+                <div class="contact-details">
+                    <h4>Informasi Kontak</h4>
+                    <p><strong>Alamat:</strong> Jl. Raya Bogor No. 967, Cibinong, Bogor</p>
+                    <p><strong>Telepon:</strong> (021)-8490 9135</p>
+                    <p><strong>Email:</strong> mahardikadamaise@example.com</p> </div>
+                <form action="#" method="post">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <textarea name="message" placeholder="Message" rows="5" required></textarea>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1443.232076307869!2d106.93055466444602!3d-6.2811029236648315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698d0008693fb5%3A0x7abaab8a5f5b083e!2sPT%20Mahardika%20Damai%20Sejahtera!5e0!3m2!1sid!2sid!4v1761561182189!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 BuildFuture Construction. All rights reserved.</p>
+            <p>Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Header blur on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backdropFilter = 'blur(20px)';
+            } else {
+                header.style.backdropFilter = 'blur(10px)';
+            }
+        });
+
+        // Simple testimonial carousel (basic auto-slide)
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial');
+        setInterval(() => {
+            testimonials.forEach(t => t.style.transform = `translateX(-${currentTestimonial * 100}%)`);
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        }, 5000);
+    </script>
+</body>
+</html>
